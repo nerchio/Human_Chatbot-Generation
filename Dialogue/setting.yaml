@@ -1,0 +1,17 @@
+gpt4o:
+  model: gpt-4o
+  temperature: 1
+  max_tokens: 1000
+  max_retries: 3
+
+gpt4o-mini:
+  model: gpt-4o-mini
+  temperature: 1
+  max_tokens: 1000
+  max_retries: 3
+
+deepseek:
+  model: deepseek-chat
+  temperature: 1
+  max_tokens: 1000
+  max_retries: 3
