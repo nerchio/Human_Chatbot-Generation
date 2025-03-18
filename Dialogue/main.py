@@ -17,12 +17,6 @@ class State(TypedDict):
     inquirer_prompt: str
     responder_prompt: str
 
-graph_builder = StateGraph(State)
-
-inquirer_llm = DeepSeek
-responder_llm = GPT4oMini
-INQUIRER_PROMPT, RESPONDER_PROMPT = GET_PROMPT()
-
 def inquirer(state: State):
     # system_message = SystemMessage(content="You are an inquirer. Please ask a question about ETHZ.")
     inquirer_prompt = HumanMessage(content=state["inquirer_prompt"])
@@ -43,21 +37,33 @@ def max_turns_condition(state: State):
     else:
         return "inquirer"
 
-# The first argument is the unique node name
-# The second argument is the function or object that will be called whenever
-# the node is used.
+def proper_content_condition(state: State):
+    if False:
+        return END
+    else:
+        return "responder"
+
+graph_builder = StateGraph(State)
 graph_builder.add_node("inquirer", inquirer)
 graph_builder.add_node("responder", responder)
 
 graph_builder.add_edge(START, "responder")
 graph_builder.add_conditional_edges("responder", max_turns_condition)
-graph_builder.add_edge("inquirer", "responder")
+graph_builder.add_conditional_edges("inquirer", proper_content_condition)
 
 graph = graph_builder.compile()
 
-image_bytes = graph.get_graph().draw_mermaid_png()
-image = PILImage.open(io.BytesIO(image_bytes))
-image.save("/work/courses/dslab/team3/Dialogue/graph.png")
+# draw the graph
+# image_bytes = graph.get_graph().draw_mermaid_png()
+# image = PILImage.open(io.BytesIO(image_bytes))
+# image.save("/work/courses/dslab/team3/Human_Chatbot-Generation/Dialogue/graph.png")
+
+
+# INFERENCE PART
+
+inquirer_llm = DeepSeek
+responder_llm = GPT4oMini
+INQUIRER_PROMPT, RESPONDER_PROMPT = GET_PROMPT()
 
 def stream_graph_updates(user_input: str):
     print("Human: " + user_input)
@@ -75,6 +81,6 @@ def stream_graph_updates(user_input: str):
                 raise ValueError("Unknown message type")
 
         # fallback if input() is not available
-user_input = "Hello! Could you tell me something about RTX4090?"
-
-stream_graph_updates(user_input)
+if __name__ == "__main__":
+    user_input = "Hello! Could you tell me something about RTX4090?"
+    stream_graph_updates(user_input)
