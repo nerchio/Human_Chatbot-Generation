@@ -135,7 +135,7 @@ if __name__ == "__main__":
             data.append(obj)
     generated_data = []
 
-    for dialogue in tqdm(data[:5], total=5):
+    for dialogue in tqdm(data, total=len(data)):
         seed = dialogue['conversation_id'][:2]
         task_summary = dialogue['task_summary']
         seed_conversation = dialogue['conversation'][:2]
