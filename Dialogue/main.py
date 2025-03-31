@@ -9,6 +9,18 @@ from models import *
 from prompts import GET_PROMPT
 import pandas as pd
 from tqdm import tqdm
+import argparse
+import jsonlines
+
+if __name__ == "__main__":
+    args = argparse.ArgumentParser()
+    args.add_argument("--inquirer_model", type=str, default="GPT4o")
+    args.add_argument("--responder_model", type=str, default="GPT4oMini")
+    args.add_argument("--data", type=str, default="oasst1_en")
+    args.add_argument("--output_path", type=str, default="results/")
+    args.add_argument("--max_turns", type=int, default=6)
+    args = args.parse_args()
+
 
 class State(TypedDict):
     # Messages have the type "list". The `add_messages` function
@@ -40,7 +52,7 @@ def responder(state: State):
     )], "turns": state["turns"] + 1}
 
 def max_turns_condition(state: State):
-    if state['turns'] >= 10:
+    if state['turns'] >= args.max_turns:
         return END
     else:
         return "inquirer"
@@ -63,24 +75,27 @@ graph_builder.add_conditional_edges("inquirer", content_condition)
 graph = graph_builder.compile()
 
 # raw the graph
-image_bytes = graph.get_graph().draw_mermaid_png()
-image = PILImage.open(io.BytesIO(image_bytes))
-image.save("/work/courses/dslab/team3/Human_Chatbot-Generation/Dialogue/graph.png")
+# image_bytes = graph.get_graph().draw_mermaid_png()
+# image = PILImage.open(io.BytesIO(image_bytes))
+# image.save("/work/courses/dslab/team3/Human_Chatbot-Generation/Dialogue/graph.png")
 
 
 # INFERENCE PART
+inquirer_llm = globals()[args.inquirer_model]
+responder_llm = globals()[args.responder_model]
 
-inquirer_llm = GPT4o
-responder_llm = GPT4oMini
-INQUIRER_SYSTEM_PROMPT, INQUIRER_PROMPT, RESPONDER_SYSTEM_PROMPT = GET_PROMPT()
 
-def graph_update(qa_history: list):
+def graph_update(qa_history: list, task_summary: str):
     messages = []
-    for index, text in enumerate(qa_history):
-        if index % 2 == 0:
-            messages.append(HumanMessage(content=text, additional_kwargs={"source": "qa_history"}))
+    for detail in qa_history:
+        if detail['role'] == 'human':
+            messages.append(HumanMessage(content=detail['content'], additional_kwargs={"source": "qa_history"}))
+        elif detail['role'] == 'bot':
+            messages.append(AIMessage(content=detail['content'], additional_kwargs={"source": "qa_history"}))
         else:
-            messages.append(AIMessage(content=text, additional_kwargs={"source": "qa_history"}))
+            raise ValueError("Invalid role")
+
+    INQUIRER_SYSTEM_PROMPT, INQUIRER_PROMPT, RESPONDER_SYSTEM_PROMPT = GET_PROMPT(task_summary)
     initial_state = {"messages": messages, 
                     "turns": len(messages), 
                     "inquirer_system_prompt": INQUIRER_SYSTEM_PROMPT,
@@ -91,11 +106,22 @@ def graph_update(qa_history: list):
 
 
 if __name__ == "__main__":
-    df = pd.read_csv('data/qa_test.csv')
-    results = pd.DataFrame(columns=['seed','dialogues'])
-    for index, row in tqdm(df.iterrows(), total=len(df)):
-        qa_history = [row['question'], row['answer']]
-        final_state = graph_update(qa_history)
+    data_path = ""
+    if args.data == "oasst1_en":
+        data_path = "data/oasst1_en_min_6_turns_summary.jsonl"
+    else:
+        raise ValueError("Invalid data")
+    data = []
+    with jsonlines.open(data_path) as reader:
+        for obj in reader:
+            data.append(obj)
+    generated_data = []
+    for dialogue in tqdm(data[:5], total=5):
+        seed = dialogue['conversation_id'][:2]
+        task_summary = dialogue['task_summary']
+        seed_conversation = dialogue['conversation'][:2]
+        final_state = graph_update(seed_conversation, task_summary)
+
         # for message in final_state["messages"]:
         #     if message.additional_kwargs["source"] == "qa_history":
         #         if message.type == "human":
@@ -107,6 +133,30 @@ if __name__ == "__main__":
         #             print("Human (Generated): " + message.content)
         #         elif message.type == "ai":
         #             print("Chatbot (Generated): " + message.content)
-        results.loc[index] = [qa_history, [m.content for m in final_state["messages"]]]
+        
+        generated_conversation = []
+        for message in final_state["messages"]:
+            if message.additional_kwargs["source"] == "generated":
+                if message.type == "human":
+                    generated_conversation.append({
+                        'role': 'human',
+                        'content': message.content
+                    })
+                elif message.type == "ai":
+                    generated_conversation.append({
+                        'role': 'bot',
+                        'content': message.content
+                    })
+        generated_dialogue = {
+            'conversation_id': seed + ['']*(len(final_state["messages"])-len(seed)) ,
+            'conversation': seed_conversation + generated_conversation,
+            'turns': len(final_state["messages"]),
+            'task_summary': task_summary
+        }
+        generated_data.append(generated_dialogue)
     
-    results.to_csv('results/results_qa_test.csv', index=False)
+    output_path = args.output_path + args.data + "_" + args.inquirer_model + "_" + args.responder_model + "_" + str(args.max_turns) + ".jsonl"
+    with jsonlines.open(output_path, mode='w') as writer:
+        for dialogue in generated_data:
+            writer.write(dialogue)
+

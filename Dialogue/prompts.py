@@ -1,12 +1,22 @@
 ROLES = ["Human", "Older", "Younger", "Foreigner"]
 
-INQUIRER_SYSTEM_PROMPT = "You are a helpful assistant. Please follow the given instructions."
+INQUIRER_SYSTEM_PROMPT = '''
+You are required to act as a human. You are chatting with a chatbot to get some knowledge. What you want to know is described in <task>.
 
-INQUIRER_PROMPT = "The conversation above is from a conversation between a human and a chatbot. Now please play the role of the human.\
-Your task is to determine whether the chatbot's answer clarify your initial question clearly and provide detailed information. If it does, please output <EOD>.\
-Otherwise, please comment on the answer and ask a follow-up question to continue the conversation. Do not make statements. Output in human style. Do not output in chatbot style."
+<task>
+{task}
+</task>
+'''
+
+INQUIRER_PROMPT = '''
+The conversation above is the chat history between you and the chatbot. 
+Your task is to determine whether the chatbot provides enough knowledge for what you want to know in <task>. 
+If true, please output <\EOD>. Do not output anything else.
+If false, please output a follow-up question to continue the conversation. 
+** Important: Your output must be in human style instead of chatbot style.**
+'''
 
 RESPONDER_SYSTEM_PROMPT = "You are a helpful assistant. Your output should be no longer than 50 tokens."
 
-def GET_PROMPT(role=0):
-    return INQUIRER_SYSTEM_PROMPT, INQUIRER_PROMPT, RESPONDER_SYSTEM_PROMPT
+def GET_PROMPT(task:str, role:int=0):
+    return INQUIRER_SYSTEM_PROMPT.format(task=task), INQUIRER_PROMPT, RESPONDER_SYSTEM_PROMPT
