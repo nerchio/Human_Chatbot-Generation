@@ -7,10 +7,11 @@ from PIL import Image as PILImage
 import io
 from models import *
 from prompts import GET_PROMPT
-import pandas as pd
 from tqdm import tqdm
 import argparse
 import jsonlines
+from langchain_community.callbacks.manager import get_openai_callback
+from utils import UniversalTokenCounter
 
 if __name__ == "__main__":
     args = argparse.ArgumentParser()
@@ -101,8 +102,25 @@ def graph_update(qa_history: list, task_summary: str):
                     "inquirer_system_prompt": INQUIRER_SYSTEM_PROMPT,
                     "inquirer_prompt": INQUIRER_PROMPT,
                     "responder_system_prompt": RESPONDER_SYSTEM_PROMPT}
-    final_state = graph.invoke(initial_state)
-    return final_state
+    
+    try:
+        with get_openai_callback() as cb:
+            final_state = graph.invoke(initial_state)
+            token_usage = {
+                "prompt_tokens": cb.prompt_tokens,
+                "completion_tokens": cb.completion_tokens,
+                "total_tokens": cb.total_tokens
+            }
+            print(f"\nOpenAI callback")
+    except Exception as e:
+        print(f"\nOpenAI callback not available, using UniversalTokenCounter: {str(e)}")
+        token_counter = UniversalTokenCounter()
+        inquirer_llm.callbacks = [token_counter]
+        responder_llm.callbacks = [token_counter]
+        final_state = graph.invoke(initial_state)
+        token_usage = token_counter.get_stats()
+    
+    return final_state, token_usage
 
 
 if __name__ == "__main__":
@@ -116,42 +134,46 @@ if __name__ == "__main__":
         for obj in reader:
             data.append(obj)
     generated_data = []
+
     for dialogue in tqdm(data[:5], total=5):
         seed = dialogue['conversation_id'][:2]
         task_summary = dialogue['task_summary']
         seed_conversation = dialogue['conversation'][:2]
-        final_state = graph_update(seed_conversation, task_summary)
+        final_state, token_usage = graph_update(seed_conversation, task_summary)
 
         # for message in final_state["messages"]:
         #     if message.additional_kwargs["source"] == "qa_history":
-        #         if message.type == "human":
+        #         if isinstance(message, HumanMessage):
         #             print("Human (Seed): " + message.content)
-        #         elif message.type == "ai":
+        #         elif isinstance(message, AIMessage):
         #             print("Chatbot (Seed): " + message.content)
         #     else:
-        #         if message.type == "human":
+        #         if isinstance(message, HumanMessage):
         #             print("Human (Generated): " + message.content)
-        #         elif message.type == "ai":
+        #         elif isinstance(message, AIMessage):
         #             print("Chatbot (Generated): " + message.content)
         
         generated_conversation = []
         for message in final_state["messages"]:
             if message.additional_kwargs["source"] == "generated":
-                if message.type == "human":
+                if isinstance(message, HumanMessage):
                     generated_conversation.append({
                         'role': 'human',
                         'content': message.content
                     })
-                elif message.type == "ai":
+                elif isinstance(message, AIMessage):
                     generated_conversation.append({
                         'role': 'bot',
                         'content': message.content
                     })
         generated_dialogue = {
-            'conversation_id': seed + ['']*(len(final_state["messages"])-len(seed)) ,
+            'conversation_id': seed + ['']*(len(final_state["messages"])-len(seed)),
             'conversation': seed_conversation + generated_conversation,
             'turns': len(final_state["messages"]),
-            'task_summary': task_summary
+            'task_summary': task_summary,
+            'inquirer_model': args.inquirer_model,
+            'responder_model': args.responder_model,
+            'token_usage': token_usage
         }
         generated_data.append(generated_dialogue)
     
@@ -159,4 +181,3 @@ if __name__ == "__main__":
     with jsonlines.open(output_path, mode='w') as writer:
         for dialogue in generated_data:
             writer.write(dialogue)
-

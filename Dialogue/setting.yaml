@@ -33,16 +33,34 @@ GeminiFlash:
   max_retries: 3
   price: USD-0.1-0.4
 
-llama3_2_3B:
-  model: meta-llama/Llama-3.2-3B-Instruct
+llama3_2_1B:
+  model: meta-llama/llama-3.2-1b-instruct
   temperature: 1
   max_tokens: 1000
   max_retries: 3
-  provider: together
+  provider: novita
+  price: USD-0.02-0.02
+
+llama3_2_3B:
+  model: meta-llama/llama-3.2-3b-instruct
+  temperature: 1
+  max_tokens: 1000
+  max_retries: 3
+  provider: novita
+  price: USD-0.03-0.05
 
 llama3_3_70B:
-  model: meta-llama/Llama-3.3-70B-Instruct
+  model: meta-llama/llama-3.3-70b-instruct
   temperature: 1
   max_tokens: 1000
   max_retries: 3
-  provider: together
+  provider: novita
+  price: USD-0.39-0.39
+
+mistral_7B:
+  model: mistralai/mistral-7b-instruct
+  temperature: 1
+  max_tokens: 1000
+  max_retries: 3
+  provider: novita
+  price: USD-0.17-0.17
