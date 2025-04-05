@@ -1,0 +1,8 @@
+A Better Rate: 0.002421307506053269
+B Better Rate: 0.004842615012106538
+Both Failed Rate: 0.007263922518159807
+Both Passed Rate: 0.9854721549636803
+# Total Dialogues: 413
+# completion prompts: 27133
+# prompt prompts: 732683
+Cost: 2.1030374999999997$

@@ -1,0 +1,7 @@
+Pass Rate: 0.9661016949152542
+# Total Dialogues: 413
+# Passed Dialogues: 399
+# Failed Dialogues: 14
+# completion prompts: 17786
+# prompt prompts: 395781
+Cost: 1.1673125$
