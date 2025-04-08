@@ -58,8 +58,10 @@ Both Falied the Test: 5.569%
 ## Gt Eval
 
 ### Indistinguishable Rate (compared with read-world data)
-llama_3B:   17.676%
-llama_70B:   35.351%
-GPT4oMini:  43.584%
-GPT4o: 37.288%
+llama_3B:   17.676%  
+llama_70B:   35.351%  
+GPT4oMini:  43.584%  
+GPT4o: 37.288%  
 DeepSeek: 37.288%  
+
+![Gt_Eval Graph](./result_summary/gt_eval.png)
