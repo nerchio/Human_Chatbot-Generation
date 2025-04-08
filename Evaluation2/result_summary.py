@@ -191,7 +191,7 @@ bars = plt.bar(model_name_list[:-1], Indistinguishable_rate_list, color=bar_colo
 
 
 # Add title and axis labels
-plt.title('Indistinguishable Rate (compared with read-world data)')
+plt.title('Indistinguishable Rate (compared with real-world data)')
 plt.xlabel('Models')
 plt.ylabel('Indistinguishable Rate')
 

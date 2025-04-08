@@ -57,7 +57,7 @@ Both Falied the Test: 5.569%
 
 ## Gt Eval
 
-### Indistinguishable Rate (compared with read-world data)
+### Indistinguishable Rate (compared with real-world data)
 llama_3B:   17.676%  
 llama_70B:   35.351%  
 GPT4oMini:  43.584%  
