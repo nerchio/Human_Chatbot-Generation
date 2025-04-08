@@ -35,7 +35,7 @@ Both Pass the Test: 7.748%
 
 
 ### llama_70B VS llama_3B
-GPT4o Better: 67.797%  
+llama_70B Better: 67.797%  
 llama_3B Better: 5.327%  
 Both Falied the Test: 25.182%  
 Both Pass the Test: 1.695%  
