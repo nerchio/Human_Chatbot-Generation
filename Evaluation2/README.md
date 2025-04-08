@@ -11,7 +11,7 @@ GPT4oMini: 90.073%
 GPT4o: 87.409%  
 DeepSeek: 87.167%   
 
-![Uni_Eval Graph](Evaluation2/result_summary/uni_eval.png)
+![Uni_Eval Graph](./result_summary/uni_eval.png)
 
 ## Pair Eval
 
