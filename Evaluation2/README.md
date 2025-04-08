@@ -13,7 +13,7 @@ DeepSeek: 87.167%
 
 ## Pair Eval
 
-### GPT4o VS GPT4oMini
+### GPT4o VS <span style="color:red">GPT4oMini</span>
 GPT4o Better: 8.232%  
 GPT4oMini Better: 38.983%  
 Both Falied the Test: 29.298%  
