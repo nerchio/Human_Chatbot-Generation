@@ -40,15 +40,15 @@ Cost: 2.28$
 
 ### GPT4o VS llama_70B
 GPT4o Better: 0.48%  
-DeepSeek Better: 0.24%  
+llama_70B Better: 0.24%  
 Both Falied the Test: 0.24%  
 Both Pass the Test: 99.03%  
 
 Cost: 2.48$  
 
-### llama_70B VS llama_30B
-GPT4o Better: 8.23%  
-DeepSeek Better: 2.66%  
+### llama_70B VS llama_3B
+llama_70 Better: 8.23%  
+llama_3B Better: 2.66%  
 Both Falied the Test: 0.48%  
 Both Pass the Test: 88.62%  
 
