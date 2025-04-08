@@ -64,7 +64,7 @@ plt.ylabel('Passing Rate')
 plt.axhline(y=passing_rate_list[-1], color='red', linestyle='--', linewidth=1.5, label='real')
 
 # Save the figure as a PDF
-plt.savefig('/home/haozhu2/Human_Chatbot-Generation/Evaluation2/result_summary/uni_eval.pdf', format='pdf')
+plt.savefig('/home/haozhu2/Human_Chatbot-Generation/Evaluation2/result_summary/uni_eval.png', format='png')
 plt.close()  # Closes the current figure
 
 # # Show the plot
@@ -196,7 +196,7 @@ plt.xlabel('Models')
 plt.ylabel('Indistinguishable Rate')
 
 # Save the figure as a PDF
-plt.savefig('/home/haozhu2/Human_Chatbot-Generation/Evaluation2/result_summary/gt_eval.pdf', format='pdf')
+plt.savefig('/home/haozhu2/Human_Chatbot-Generation/Evaluation2/result_summary/gt_eval.png', format='png')
 plt.close()  # Closes the current figure
 # # Show the plot
 # plt.show()
