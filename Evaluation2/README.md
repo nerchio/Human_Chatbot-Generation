@@ -65,3 +65,6 @@ GPT4o: 37.288%
 DeepSeek: 37.288%  
 
 ![Gt_Eval Graph](./result_summary/gt_eval.png)
+
+
+# The Evaluation Results (DeepSeek as the Evaluator)
