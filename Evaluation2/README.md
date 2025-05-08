@@ -101,7 +101,7 @@ DeepSeek: 57.38%
 Read-world Human-Chatbot Conversations: 85.44%  
 llama_3B: 11.86%  
 llama_70B: NA  
-GPT4oMini: 81.36%
+GPT4oMini: 81.36%  
 GPT4o: 72.88%  
 DeepSeek: 59.32%   
 
