@@ -1,5 +1,4 @@
-# The Evaluation Results
-The ChatGPT4o model is used to be the evaluator.  
+# The Evaluation Results (ChatGPT4o as the Evaluator)
 
 ## Uni Eval
 
@@ -68,3 +67,28 @@ DeepSeek: 37.288%
 
 
 # The Evaluation Results (DeepSeek as the Evaluator)
+
+## Uni Eval
+
+### Passing Rate (No AI involved)
+Read-world Human-Chatbot Conversations: 85.44%  
+llama_3B: 68.04%  
+llama_70B: 90.56%  
+GPT4oMini: 90.56%  
+GPT4o: 89.59%  
+DeepSeek: 88.86%   
+
+![Uni_Eval Graph](./result_summary_ds/uni_eval.png)
+
+
+## Gt Eval
+
+### Indistinguishable Rate (compared with real-world data)
+llama_3B:   13.56%  
+llama_70B:   38.50%  
+GPT4oMini:  76.27%  
+GPT4o: 62.47%  
+DeepSeek: 57.38%  
+
+![Gt_Eval Graph](./result_summary_ds/gt_eval.png)
+
