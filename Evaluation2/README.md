@@ -78,7 +78,7 @@ GPT4oMini: 90.56%
 GPT4o: 89.59%  
 DeepSeek: 88.86%   
 
-![Uni_Eval Graph](./result_summary_ds/uni_eval.png)
+![Uni_Eval_ds Graph](./result_summary_ds/uni_eval.png)
 
 
 ## Gt Eval
@@ -90,5 +90,5 @@ GPT4oMini:  76.27%
 GPT4o: 62.47%  
 DeepSeek: 57.38%  
 
-![Gt_Eval Graph](./result_summary_ds/gt_eval.png)
+![Gt_Eval_ds Graph](./result_summary_ds/gt_eval.png)
 
