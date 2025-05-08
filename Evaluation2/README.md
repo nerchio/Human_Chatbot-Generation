@@ -92,3 +92,17 @@ DeepSeek: 57.38%
 
 ![Gt_Eval_ds Graph](./result_summary_ds/gt_eval.png)
 
+
+# The Evaluation Results (Claude as the Evaluator)
+
+## Uni Eval
+
+### Passing Rate (No AI involved)
+Read-world Human-Chatbot Conversations: 85.44%  
+llama_3B: 11.86%  
+llama_70B: NA 
+GPT4oMini: 81.36%
+GPT4o: 72.88%  
+DeepSeek: 59.32%   
+
+![Uni_Eval_claude Graph](./result_summary_claude/uni_eval.png)
