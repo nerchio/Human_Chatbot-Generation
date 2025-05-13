@@ -1,6 +1,8 @@
 from prompts import create_unieval_prompt, create_paireval_prompt
 import openai
 
+from models import *
+
 def uni_eval(conversation:list[dict], openai_api_key:str, model:str="gpt-4o") -> str:
     """
     Uses the UniEval prompt to evaluate a conversation.
@@ -26,6 +28,43 @@ def uni_eval(conversation:list[dict], openai_api_key:str, model:str="gpt-4o") ->
 
     return response.choices[0].message.content
 
+
+def uni_eval_Deepseek(conversation:list[dict]) -> str:
+    prompt = create_unieval_prompt(conversation)
+
+    response = DeepSeek.invoke(prompt)
+
+    return response
+
+def uni_eval_llama3_2_70B(conversation:list[dict]) -> str:
+    prompt = create_unieval_prompt(conversation)
+
+    response = llama3_3_70B.invoke(prompt)
+
+    return response
+
+def uni_eval_claude(conversation:list[dict]) -> str:
+    prompt = create_unieval_prompt(conversation)
+
+    response = Claude3_7.invoke(prompt)
+
+    return response
+
+def uni_eval_geminiflash(conversation:list[dict]) -> str:
+    prompt = create_unieval_prompt(conversation)
+
+    response = GeminiFlash.invoke(prompt)
+
+    return response
+
+def uni_eval_claude(conversation:list[dict]) -> str:
+    prompt = create_unieval_prompt(conversation)
+
+    response = Claude3_7.invoke(prompt)
+
+    return response
+
+
 def pair_eval(conversation_1:list[dict], conversation_2:list[dict], openai_api_key:str, model:str="gpt-4o") -> str:
     """
     Uses the PairEval prompt to evaluate two conversations.
@@ -49,6 +88,21 @@ def pair_eval(conversation_1:list[dict], conversation_2:list[dict], openai_api_k
 
     return response.choices[0].message.content
 
+def pair_eval_Deepseek(conversation_1:list[dict], conversation_2:list[dict]) -> str:
+    prompt = create_paireval_prompt(conversation_1, conversation_2)
+
+    response = DeepSeek.invoke(prompt)
+
+    return response
+
+
+def pair_eval_geminishflash(conversation_1:list[dict], conversation_2:list[dict]) -> str:
+    prompt = create_paireval_prompt(conversation_1, conversation_2)
+
+    response = GeminiFlash.invoke(prompt)
+
+    return response
+
 def gt_eval(true_conversation:list[dict], generated_conversation:list[dict], openai_api_key:str, model="gpt-4o") -> str:
     """
     Wrap the Pair-Eval prompt to evaluate a ground truth comparison.
@@ -61,3 +115,10 @@ def gt_eval(true_conversation:list[dict], generated_conversation:list[dict], ope
     """
     return pair_eval(true_conversation, generated_conversation, openai_api_key, model)
 
+def gt_eval_Deepseek(true_conversation:list[dict], generated_conversation:list[dict]) -> str:
+
+    return pair_eval_Deepseek(true_conversation, generated_conversation)
+
+def gt_eval_geminiflash(true_conversation:list[dict], generated_conversation:list[dict]) -> str:
+
+    return pair_eval_geminishflash(true_conversation, generated_conversation)
