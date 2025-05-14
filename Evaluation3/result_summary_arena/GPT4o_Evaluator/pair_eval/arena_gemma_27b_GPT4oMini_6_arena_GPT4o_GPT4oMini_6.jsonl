@@ -1,0 +1,7 @@
+Conversation A: arena_gemma_27b_GPT4oMini_6.jsonl
+Conversation B: arena_GPT4o_GPT4oMini_6.jsonl
+A Better Rate: 0.21157684630738524
+B Better Rate: 0.29241516966067865
+Both Failed Rate: 0.4031936127744511
+Both Passed Rate: 0.09281437125748503
+# Total Dialogues: 1002
