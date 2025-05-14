@@ -1,15 +1,22 @@
 # Evaluation
 
-## uni_eval
+## uni_eval (GPT 4o Evaluator)
 
 ## oasst dataset (6-turns)
 ![oasst_6_uni_eval_graph](./result_summary_oasst/GPT4o_Evaluator/uni_eval.png)  
 
 ## arena dataset (6-turns)
-![arena_6_uni_eval_graph](./result_summary_arena/GPT4o_Evaluator/uni_eval.png)  
+![arena_6_uni_eval_graph](./result_summary_arena/GPT4o_Evaluator/uni_eval.png)
 
 
-## gt_eval
+## uni_eval (GeminiFlash Evaluator)
+
+## oasst dataset (6-turns)
+![oasst_6_GeminiFlash_Evaluator_uni_eval_graph](./result_summary_oasst/GeminiFlash_Evaluator/uni_eval.png)  
+
+
+
+## gt_eval (GPT 4o Evaluator)
 ## oasst dataset (6-turns)
 ![oasst_6_gt_eval_graph](./result_summary_oasst/GPT4o_Evaluator/gt_eval.png)  
 
@@ -17,7 +24,7 @@
 ![arena_6_gt_eval_graph](./result_summary_arena/GPT4o_Evaluator/gt_eval.png) 
 
 
-## pair_eval
+## pair_eval (GPT 4o Evaluator)
 
 ## oasst dataset (6-turns)  
 
