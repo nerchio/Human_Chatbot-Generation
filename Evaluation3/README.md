@@ -24,6 +24,12 @@
 ![arena_6_gt_eval_graph](./result_summary_arena/GPT4o_Evaluator/gt_eval.png) 
 
 
+## gt_eval (GeminiFlash Evaluator)
+## oasst dataset (6-turns)
+![oasst_6_GeminiFlash_Evaluator_gt_eval_graph](./result_summary_oasst/GeminiFlash_Evaluator/gt_eval.png) 
+
+
+
 ## pair_eval (GPT 4o Evaluator)
 
 ## oasst dataset (6-turns)  
