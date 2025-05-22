@@ -1,0 +1,8 @@
+Conversation A: oasst1_en_min_6_turns_summary.jsonl
+Conversation B: oasst1_en_GPT4o_GPT4oMini_12.jsonl
+A Better Rate: 0.7070217917675545
+B Better Rate: 0.08716707021791767
+Both Failed Rate: 0.2009685230024213
+Both Passed Rate: 0.004842615012106538
+# Total Dialogues: 413
+# Indistinguishable Rate: 0.2929782082324455
