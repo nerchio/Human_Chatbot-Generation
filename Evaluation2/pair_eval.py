@@ -71,42 +71,28 @@ def clean_quotes(s):
 
 
 if __name__ == "__main__":
+    dialogue_data_folder = "/home/haozhu2/Human_Chatbot-Generation/Evaluation3/data_oasst/"
+    saved_file_folder = "/home/haozhu2/Human_Chatbot-Generation/Evaluation3/result_oasst/GPT4o_Evaluator/pair_eval/"
 
-    # dialogue_data_file_names = ["oasst1_en_DeepSeek_GPT4oMini_6.jsonl", "oasst1_en_GPT4oMini_GPT4oMini_6.jsonl", "oasst1_en_GPT4o_GPT4oMini_6.jsonl", "oasst1_en_llama_3B_GPT4oMini_6.jsonl", "oasst1_en_llama_70B_GPT4oMini_6.jsonl", "oasst1_en_min_6_turns_summary.jsonl"]
+    dialogue_data_file_names = ["oasst1_en_DeepSeek_GPT4oMini_6.jsonl", "oasst1_en_gemma_27b_GPT4oMini_6.jsonl", "oasst1_en_GPT4o_GPT4oMini_6.jsonl", "oasst1_en_GPT4oMini_GPT4oMini_6.jsonl", "oasst1_en_llama_3B_GPT4oMini_6.jsonl", "oasst1_en_llama_8B_GPT4oMini_6.jsonl", "oasst1_en_llama_70B_GPT4oMini_6.jsonl", "oasst1_en_mistral_7B_GPT4oMini_6.jsonl", "oasst1_en_min_6_turns_summary.jsonl"]
 
-    dialogue_data_file_names = ["arena_DeepSeek_GPT4oMini_10.jsonl", "arena_GPT4oMini_GPT4oMini_10.jsonl", "arena_GPT4o_GPT4oMini_10.jsonl", "arena_llama_3B_GPT4oMini_10.jsonl", "arena_llama_70B_GPT4oMini_10.jsonl", "arena_mistral_7B_GPT4oMini_10.jsonl", "arena_model_a_summaries.jsonl"]
-
-
-    # index_pair_list = [(0,2), (1,2), (3,4), (4,2)]
-
-    index_pair_list = [(2,1), (2,0), (2, 4)]
-
-    index_pair_list = [(2,0), (2, 4)]
+    index_pair_list = [(1,2), (5,6)]
 
     for index_pair in index_pair_list:
         
         dialogue_A_file_name = dialogue_data_file_names[index_pair[0]]
         dialogue_B_file_name = dialogue_data_file_names[index_pair[1]]
 
-        dialogue_A_data_path = "/home/haozhu2/Human_Chatbot-Generation/Evaluation/data_arena/" + dialogue_A_file_name
-        dialogue_B_data_path = "/home/haozhu2/Human_Chatbot-Generation/Evaluation/data_arena/" + dialogue_B_file_name
+        dialogue_A_data_path = dialogue_data_folder  + dialogue_A_file_name
+        dialogue_B_data_path = dialogue_data_folder  + dialogue_B_file_name
 
         dialogue_A_data = parse_jsonl(dialogue_A_data_path)
         dialogue_B_data = parse_jsonl(dialogue_B_data_path)
 
-        saved_result_file_path = "/home/haozhu2/Human_Chatbot-Generation/Evaluation2/result_arena/GeminiFlash_Evaluator/pair_eval/" + dialogue_A_file_name[:-6] + "_" + dialogue_B_file_name
+        saved_result_file_path = saved_file_folder + dialogue_A_file_name[:-6] + "_" + dialogue_B_file_name
         saved_result_file = open(saved_result_file_path, "w", encoding="utf-8")
 
-        # conversation_A = dialogue_A_data[0]
-        # conversation_B = dialogue_B_data[0]
-
-        # pair_eval_response = pair_eval(conversation_A, conversation_B, "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", "gpt-4o")
-
-
-        # print(pair_eval_response)
-
         for dialoue_index in range(len(dialogue_A_data)):
-        # for dialoue_index in range(939, len(dialogue_A_data)):
 
             print("dialogue A: " + dialogue_A_file_name)
             print("dialogue B: " + dialogue_B_file_name)
@@ -115,77 +101,76 @@ if __name__ == "__main__":
             conversation_A = dialogue_A_data[dialoue_index]["conversation"]
             conversation_B = dialogue_B_data[dialoue_index]["conversation"]
 
-            # print(type(conversation_A))
-            # print(type(conversation_A[0]))
 
+            # ************GPT 4o Evaluator pair_eval**********************
+            pair_eval_response = pair_eval(conversation_A, conversation_B, "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", "gpt-4o")
 
-            # pair_eval_response = pair_eval(conversation_A, conversation_B, "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", "gpt-4o")
-
-            # json_obj = json.loads(pair_eval_response)
-            # saved_result_file.write(json.dumps(json_obj) + "\n")
+            json_obj = json.loads(pair_eval_response)
+            saved_result_file.write(json.dumps(json_obj) + "\n")
 
             
-            try_times = 0
-            write_succeed = False
-            while write_succeed == False:
+             # ************geminishflash Evaluator pair_eval**********************
+            # try_times = 0
+            # write_succeed = False
+            # while write_succeed == False:
 
-                gt_eval_geminiflash_response = pair_eval_geminishflash(conversation_A, conversation_B)
-                raw_content = gt_eval_geminiflash_response.content
+            #     gt_eval_geminiflash_response = pair_eval_geminishflash(conversation_A, conversation_B)
+            #     raw_content = gt_eval_geminiflash_response.content
 
-                # print(raw_content)
+            #     # print(raw_content)
 
-                # Extract JSON block safely
-                match = re.search(r'\{.*\}', raw_content, re.DOTALL)
-                if match:
-                    try:
-                        json_str = match.group(0)
-                        # json_str = json_str.replace("\\", "")
-                        print(json_str)
-                        # x = clean_reason_quotes(json_str)
-                        # print(x)
-                        # json_str = json_str.replace('"im the goat"', "'im the goat'")
+            #     # Extract JSON block safely
+            #     match = re.search(r'\{.*\}', raw_content, re.DOTALL)
+            #     if match:
+            #         try:
+            #             json_str = match.group(0)
+            #             # json_str = json_str.replace("\\", "")
+            #             print(json_str)
+            #             # x = clean_reason_quotes(json_str)
+            #             # print(x)
+            #             # json_str = json_str.replace('"im the goat"', "'im the goat'")
 
 
-                        try:
-                            parsed_json = json.loads(json_str)
-                        except:
-                            try:
-                                clean_double_qoute_json_str = clean_quotes(json_str)
-                                print("clean double qoutes:")
-                                print(clean_double_qoute_json_str)
-                                parsed_json = json.loads(clean_double_qoute_json_str)
-                            except:
-                                clean_double_qoute_slash_json_str = clean_double_qoute_json_str.replace("\\", "")
-                                print("clean double qoutes and slash:")
-                                print(clean_double_qoute_slash_json_str)
-                                parsed_json = json.loads(clean_double_qoute_slash_json_str)                                                              
+            #             try:
+            #                 parsed_json = json.loads(json_str)
+            #             except:
+            #                 try:
+            #                     clean_double_qoute_json_str = clean_quotes(json_str)
+            #                     print("clean double qoutes:")
+            #                     print(clean_double_qoute_json_str)
+            #                     parsed_json = json.loads(clean_double_qoute_json_str)
+            #                 except:
+            #                     clean_double_qoute_slash_json_str = clean_double_qoute_json_str.replace("\\", "")
+            #                     print("clean double qoutes and slash:")
+            #                     print(clean_double_qoute_slash_json_str)
+            #                     parsed_json = json.loads(clean_double_qoute_slash_json_str)                                                              
 
-                        #print(parsed_json)
-                        saved_result_file.write(json.dumps(parsed_json) + "\n")
-                        write_succeed = True
-                    except:
-                        try:
-                            parsed_json = ast.literal_eval(json_str)
-                            #print(parsed_json)
-                            saved_result_file.write(json.dumps(parsed_json) + "\n")
-                            write_succeed = True
-                        except:
-                            try_times = try_times + 1
-                            if try_times < 10:
-                                print("wait for 10s before the next run, already run %d times" % try_times)
-                                time.sleep(10)
-                                continue
-                            else:
-                                sys.exit("Tryied 10 times but still encounter errors.")
+            #             #print(parsed_json)
+            #             saved_result_file.write(json.dumps(parsed_json) + "\n")
+            #             write_succeed = True
+            #         except:
+            #             try:
+            #                 parsed_json = ast.literal_eval(json_str)
+            #                 #print(parsed_json)
+            #                 saved_result_file.write(json.dumps(parsed_json) + "\n")
+            #                 write_succeed = True
+            #             except:
+            #                 try_times = try_times + 1
+            #                 if try_times < 10:
+            #                     print("wait for 10s before the next run, already run %d times" % try_times)
+            #                     time.sleep(10)
+            #                     continue
+            #                 else:
+            #                     sys.exit("Tryied 10 times but still encounter errors.")
 
-                else:
-                    # sys.exit("No JSON object found.")
-                    try_times = try_times + 1
-                    if try_times < 10:
-                        print("No JSON object found. Wait for 10s before the next run, already run %d times" % try_times)
-                        time.sleep(10)
-                        continue
-                    else:
-                        sys.exit("Try Ten times and No JSON object found.")
+            #     else:
+            #         # sys.exit("No JSON object found.")
+            #         try_times = try_times + 1
+            #         if try_times < 10:
+            #             print("No JSON object found. Wait for 10s before the next run, already run %d times" % try_times)
+            #             time.sleep(10)
+            #             continue
+            #         else:
+            #             sys.exit("Try Ten times and No JSON object found.")
 
 

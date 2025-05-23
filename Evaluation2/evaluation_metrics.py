@@ -36,13 +36,6 @@ def uni_eval_Deepseek(conversation:list[dict]) -> str:
 
     return response
 
-def uni_eval_llama3_2_70B(conversation:list[dict]) -> str:
-    prompt = create_unieval_prompt(conversation)
-
-    response = llama3_3_70B.invoke(prompt)
-
-    return response
-
 def uni_eval_claude(conversation:list[dict]) -> str:
     prompt = create_unieval_prompt(conversation)
 
@@ -54,13 +47,6 @@ def uni_eval_geminiflash(conversation:list[dict]) -> str:
     prompt = create_unieval_prompt(conversation)
 
     response = GeminiFlash.invoke(prompt)
-
-    return response
-
-def uni_eval_claude(conversation:list[dict]) -> str:
-    prompt = create_unieval_prompt(conversation)
-
-    response = Claude3_7.invoke(prompt)
 
     return response
 
