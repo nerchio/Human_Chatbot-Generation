@@ -1,0 +1,8 @@
+Conversation A: arena_model_a_summaries.jsonl
+Conversation B: arena_GPT4o_GPT4oMini_12.jsonl
+A Better Rate: 0.5558882235528942
+B Better Rate: 0.2884231536926148
+Both Failed Rate: 0.15169660678642716
+Both Passed Rate: 0.003992015968063872
+# Total Dialogues: 1002
+# Indistinguishable Rate: 0.4441117764471058
