@@ -36,8 +36,26 @@ class State(TypedDict):
 def inquirer(state: State):
     inquirer_system_prompt = SystemMessage(content=state["inquirer_system_prompt"])
     inquirer_prompt = HumanMessage(content=state["inquirer_prompt"])
+
+    # messages = state["messages"]
+    # new_messages = []
+    # for m in messages:
+    #     if isinstance(m, HumanMessage):
+    #         new_messages.append({'role': 'user', 'content': m.content})
+    #     elif isinstance(m, AIMessage):
+    #         new_messages.append({'role': 'assistant', 'content': m.content})
+    #     else:
+    #         raise ValueError("Invalid message")
+
     inquirer_message = [inquirer_system_prompt] + state["messages"] + [inquirer_prompt]
+
+    # print(len(inquirer_message))
+    # print(inquirer_message)
+
     inquirer_response = inquirer_llm.invoke(inquirer_message)
+
+    # print(inquirer_response.content)
+
     return {"messages": [HumanMessage(
         content=inquirer_response.content,
         additional_kwargs={"source": "generated"}
@@ -127,6 +145,8 @@ if __name__ == "__main__":
     data_path = ""
     if args.data == "oasst1_en":
         data_path = "data/oasst1_en_min_6_turns_summary.jsonl"
+    elif args.data == "arena":
+        data_path = "data/arena_model_a_summaries.jsonl"
     else:
         raise ValueError("Invalid data")
     data = []
@@ -135,49 +155,39 @@ if __name__ == "__main__":
             data.append(obj)
     generated_data = []
 
-    for dialogue in tqdm(data, total=len(data)):
-        seed = dialogue['conversation_id'][:2]
-        task_summary = dialogue['task_summary']
-        seed_conversation = dialogue['conversation'][:2]
-        final_state, token_usage = graph_update(seed_conversation, task_summary)
-
-        # for message in final_state["messages"]:
-        #     if message.additional_kwargs["source"] == "qa_history":
-        #         if isinstance(message, HumanMessage):
-        #             print("Human (Seed): " + message.content)
-        #         elif isinstance(message, AIMessage):
-        #             print("Chatbot (Seed): " + message.content)
-        #     else:
-        #         if isinstance(message, HumanMessage):
-        #             print("Human (Generated): " + message.content)
-        #         elif isinstance(message, AIMessage):
-        #             print("Chatbot (Generated): " + message.content)
-        
-        generated_conversation = []
-        for message in final_state["messages"]:
-            if message.additional_kwargs["source"] == "generated":
-                if isinstance(message, HumanMessage):
-                    generated_conversation.append({
-                        'role': 'human',
-                        'content': message.content
-                    })
-                elif isinstance(message, AIMessage):
-                    generated_conversation.append({
-                        'role': 'bot',
-                        'content': message.content
-                    })
-        generated_dialogue = {
-            'conversation_id': seed + ['']*(len(final_state["messages"])-len(seed)),
-            'conversation': seed_conversation + generated_conversation,
-            'turns': len(final_state["messages"]),
-            'task_summary': task_summary,
-            'inquirer_model': args.inquirer_model,
-            'responder_model': args.responder_model,
-            'token_usage': token_usage
-        }
-        generated_data.append(generated_dialogue)
-    
     output_path = args.output_path + args.data + "_" + args.inquirer_model + "_" + args.responder_model + "_" + str(args.max_turns) + ".jsonl"
+    
+    # 打开文件准备写入
     with jsonlines.open(output_path, mode='w') as writer:
-        for dialogue in generated_data:
-            writer.write(dialogue)
+        for i, dialogue in enumerate(tqdm(data, total=len(data))):
+            seed = dialogue['conversation_id'][:2]
+            task_summary = dialogue['task_summary']
+            seed_conversation = dialogue['conversation'][:2]
+            final_state, token_usage = graph_update(seed_conversation, task_summary)
+            
+            generated_conversation = []
+            for message in final_state["messages"]:
+                if message.additional_kwargs["source"] == "generated":
+                    if isinstance(message, HumanMessage):
+                        generated_conversation.append({
+                            'role': 'human',
+                            'content': message.content
+                        })
+                    elif isinstance(message, AIMessage):
+                        generated_conversation.append({
+                            'role': 'bot',
+                            'content': message.content
+                        })
+            
+            generated_dialogue = {
+                'conversation_id': seed + ['']*(len(final_state["messages"])-len(seed)) if args.data == "oasst1_en" else dialogue['conversation_id'],
+                'conversation': seed_conversation + generated_conversation,
+                'turns': len(final_state["messages"]),
+                'task_summary': task_summary,
+                'inquirer_model': args.inquirer_model,
+                'responder_model': args.responder_model,
+                'token_usage': token_usage
+            }
+            
+            # 写入当前对话
+            writer.write(generated_dialogue)

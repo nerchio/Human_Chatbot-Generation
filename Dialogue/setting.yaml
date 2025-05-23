@@ -64,3 +64,74 @@ mistral_7B:
   max_retries: 3
   provider: novita
   price: USD-0.17-0.17
+
+llama3_1_8B:
+  model: meta-llama/llama-3.1-8b-instruct
+  temperature: 1
+  max_tokens: 1000
+  max_retries: 3
+  provider: novita
+  price: USD-0.02-0.05
+
+qwen_14B:
+  model: qwen/qwen3-14b-fp8
+  temperature: 1
+  max_tokens: 1000
+  max_retries: 3
+  provider: novita
+
+# deepseek:
+#   model: deepseek/deepseek-v3-0324
+#   temperature: 1.3
+#   max_tokens: 1000
+#   max_retries: 3
+#   provider: novita
+
+gemma_27b:
+  model: google/gemma-3-27b-it
+  temperature: 1
+  max_tokens: 1000
+  max_retries: 3
+  provider: novita
+
+llama_3b_v1:
+  base_url: https://cs3h7nt207o1bum9.us-east-1.aws.endpoints.huggingface.cloud/v1/
+  model: tgi
+  temperature: 1
+  max_tokens: 50
+  max_retries: 5
+
+llama_3b_v2:
+  base_url: https://nguopr4axwqv0qdl.us-east-1.aws.endpoints.huggingface.cloud/v1/
+  model: tgi
+  temperature: 1
+  max_tokens: 50
+  max_retries: 5
+
+llama_8b_v1:
+  base_url: https://o0fc8ja98lg5qam2.us-east-1.aws.endpoints.huggingface.cloud/v1/
+  model: tgi
+  temperature: 1
+  max_tokens: 50
+  max_retries: 5
+
+llama_8b_v2:
+  base_url: https://cd8ou7r19ip472r6.us-east-1.aws.endpoints.huggingface.cloud/v1/
+  model: tgi
+  temperature: 1
+  max_tokens: 50
+  max_retries: 5
+
+mistral_v1:
+  base_url: https://qzn5wdsla86h4n9t.us-east-1.aws.endpoints.huggingface.cloud/v1/
+  model: tgi
+  temperature: 1
+  max_tokens: 50
+  max_retries: 5
+
+mistral_v2:
+  base_url: https://xoj65iea4zfqfshn.us-east-1.aws.endpoints.huggingface.cloud/v1/
+  model: tgi
+  temperature: 1
+  max_tokens: 50
+  max_retries: 5

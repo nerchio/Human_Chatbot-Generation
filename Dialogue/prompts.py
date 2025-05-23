@@ -8,11 +8,18 @@ You are required to act as a human. You are chatting with a chatbot to get some 
 </task>
 '''
 
+# INQUIRER_PROMPT = '''
+# The conversation above is the chat history between you and the chatbot. 
+# Your task is to determine whether the chatbot provides enough knowledge for what you want to know in <task>. You don't need to provide any analysis. 
+# If true, please output "<EOD>". Do not output anything else.
+# If false, please output a follow-up question to continue the conversation. 
+
+# ** Important: Your output must be in human style instead of chatbot style. **
+# '''
+
 INQUIRER_PROMPT = '''
 The conversation above is the chat history between you and the chatbot. 
-Your task is to determine whether the chatbot provides enough knowledge for what you want to know in <task>. You don't need to provide any analysis. 
-If true, please output "<EOD>". Do not output anything else.
-If false, please output a follow-up question to continue the conversation. 
+Your task is to perform as a human to continue the chat. The topic of the chat is described in <task>. You could ask anything you want to know about the topic.
 
 ** Important: Your output must be in human style instead of chatbot style. **
 '''
