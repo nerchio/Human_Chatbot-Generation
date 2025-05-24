@@ -1,6 +1,8 @@
 # Human-Chatbot Dialogue Generation
 
 ## Generation of Dialogues
+Please contact Ruizhe Zhu (zhurui@student.ethz.ch) for questions of this part.
+
 To learn more about the generation of dialogues, you can check the following directory:
 ```bash
 cd Generation
