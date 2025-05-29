@@ -49,7 +49,7 @@ We have some fine-tuned models in them, and they are all public on Hugging Face.
 You have to start a new inference point on Hugging Face before using them for generation.
 
 ## Evaluation of of Generated Dialogues
-Please contact Hao Zhu (zhurui@student.ethz.ch) for questions of this part.
+Please contact Hao Zhu (haozhu2@student.ethz.ch) for questions of this part.
 
 ### Evaluation Metrics
 All the metrics are defined in `evaluation_metrics.py`. For more details, please check the project report.
@@ -59,7 +59,9 @@ Prompts of the judge LLM are defined in `prompts.py`.
 ### How to run
 The code to run the UniEval, PairEval, and GTEval process are defined in `uni_eval.py`, `pair_eval.py`, and `gt_eval.py`.  
 
-Before running, you need to change three variables in the files: 
+Before running, you need to change sevaral variables in the files: 
+
+`ChatGPT4o_api_key`: The OpenAI API key.
 
 `dialogue_data_folder`: the directory where the dialogue data files to be evaluated reside.
 
