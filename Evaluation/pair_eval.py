@@ -1,22 +1,11 @@
-from typing import Annotated
-from typing_extensions import TypedDict
-from langgraph.graph import StateGraph, START, END
-from langgraph.graph.message import add_messages
-from langchain.schema import SystemMessage, HumanMessage, AIMessage
-from PIL import Image as PILImage
-import io
-# from prompts import GET_EVALUATOER_PROMPT
-
 from evaluation_metrics import pair_eval
-
 import re
-
 import json
 
-ChatGPT4o_api_key = "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"
+ChatGPT4o_api_key = "YOUR_KEY"
 
-dialogue_data_folder = "/home/haozhu2/Human_Chatbot-Generation/Evaluation3/data_oasst/"
-saved_file_folder = "/home/haozhu2/Human_Chatbot-Generation/Evaluation3/result_oasst/GPT4o_Evaluator/pair_eval/"
+dialogue_data_folder = "./data_oasst/"
+saved_file_folder = "./"
 
 dialogue_data_file_names = ["oasst1_en_DeepSeek_GPT4oMini_6.jsonl", "oasst1_en_gemma_27b_GPT4oMini_6.jsonl", "oasst1_en_GPT4o_GPT4oMini_6.jsonl", "oasst1_en_GPT4oMini_GPT4oMini_6.jsonl", "oasst1_en_llama_3B_GPT4oMini_6.jsonl", "oasst1_en_llama_8B_GPT4oMini_6.jsonl", "oasst1_en_llama_70B_GPT4oMini_6.jsonl", "oasst1_en_mistral_7B_GPT4oMini_6.jsonl", "oasst1_en_min_6_turns_summary.jsonl"]
 

@@ -1,26 +1,15 @@
-from typing import Annotated
-from typing_extensions import TypedDict
-from langgraph.graph import StateGraph, START, END
-from langgraph.graph.message import add_messages
-from langchain.schema import SystemMessage, HumanMessage, AIMessage
-from PIL import Image as PILImage
-import io
-# from prompts import GET_EVALUATOER_PROMPT
-
 from evaluation_metrics import gt_eval
-
 import re
-
 import json
 
-ChatGPT4o_api_key = "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"
+ChatGPT4o_api_key = "YOUR_KEY"
 
-dialogue_data_folder = "/home/haozhu2/Human_Chatbot-Generation/Evaluation3/data_arena/"
-saved_result_folder = "/home/haozhu2/Human_Chatbot-Generation/Evaluation3/result_arena/GPT4o_Evaluator/gt_eval/"
+dialogue_data_folder = "./data_arena/"
+saved_result_folder = "./"
 
 dialogue_data_file_names = ["arena_llama_3b_v1_GPT4oMini_6.jsonl", "arena_llama_3b_v2_GPT4oMini_6.jsonl", "arena_llama_8b_v1_GPT4oMini_6.jsonl", "arena_llama_8b_v2_GPT4oMini_6.jsonl","arena_mistral_v1_GPT4oMini_6.jsonl", "arena_mistral_v2_GPT4oMini_6.jsonl", "arena_model_a_summaries.jsonl"]
 
-index_pair_list = [(6,0), (6,1), (6,2), (6,3), (6,4), (6,5)]
+index_pair_list = [(6,0)]
 
 # Function to read and parse a JSONL file
 def parse_jsonl(file_path):

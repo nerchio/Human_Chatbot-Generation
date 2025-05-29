@@ -1,8 +1,6 @@
 from prompts import create_unieval_prompt, create_paireval_prompt
 import openai
 
-from models import *
-
 def uni_eval(conversation:list[dict], openai_api_key:str, model:str="gpt-4o") -> str:
     """
     Uses the UniEval prompt to evaluate a conversation.
