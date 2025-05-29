@@ -78,26 +78,18 @@ They are stored in `result_oasst` and `result_arena`.
 
 And we visualize the results. 
 
-##### oasst UniEval (6-turns)
-[View the PDF](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_uni_eval_6_turns.pdf)
+[oasst UniEval (6-turns)](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_uni_eval_6_turns.pdf)
 
-##### oasst UniEval (12-turns)
-[View the PDF](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_uni_eval_12_turns.pdf)
+[oasst UniEval (12-turns)](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_uni_eval_12_turns.pdf)
 
-##### arena UniEval (6-turns)
-[View the PDF](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_uni_eval_6_turns.pdf)
+[arena UniEval (6-turns)](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_uni_eval_6_turns.pdf)
 
-##### arena UniEval (12-turns)
-[View the PDF](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_uni_eval_12_turns.pdf)
+[arena UniEval (12-turns)](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_uni_eval_12_turns.pdf)
 
-##### oasst GTEval (6-turns)
-[View the PDF](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_gt_eval_6_turns.pdf)
+[oasst GTEval (6-turns)](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_gt_eval_6_turns.pdf)
 
-##### oasst GTEval (12-turns)
-[View the PDF](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_gt_eval_12_turns.pdf)
+[oasst GTEval (12-turns)](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_gt_eval_12_turns.pdf)
 
-##### arena GTEval (6-turns)
-[View the PDF](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_gt_eval_6_turns.pdf)
+[arena GTEval (6-turns)](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_gt_eval_6_turns.pdf)
 
-##### arena GTEval (12-turns)
-[View the PDF](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_gt_eval_12_turns.pdf)
+[arena GTEval (12-turns)](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_gt_eval_12_turns.pdf)
