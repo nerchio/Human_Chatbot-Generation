@@ -1,7 +1,0 @@
-Conversation A: arena_GPT4o_GPT4oMini_10.jsonl
-Conversation B: arena_GPT4oMini_GPT4oMini_10.jsonl
-A Better Rate: 0.2694610778443114
-B Better Rate: 0.09880239520958084
-Both Failed Rate: 0.49600798403193613
-Both Passed Rate: 0.13572854291417166
-# Total Dialogues: 1002
