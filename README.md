@@ -47,3 +47,57 @@ We have some fine-tuned models in them, and they are all public on Hugging Face.
 - [mistral-v2](https://huggingface.co/SyangZhou/autotrain-m-0520-v2)
 
 You have to start a new inference point on Hugging Face before using them for generation.
+
+## Evaluation of of Generated Dialogues
+Please contact Hao Zhu (zhurui@student.ethz.ch) for questions of this part.
+
+### Evaluation Metrics
+All the metrics are defined in `evaluation_metrics.py`. For more details, please check the project report.
+
+Prompts of the judge LLM are defined in `prompts.py`.  
+
+### How to run
+The code to run the UniEval, PairEval, and GTEval process are defined in `uni_eval.py`, `pair_eval.py`, and `gt_eval.py`.  
+
+Before running, you need to change three variables in the files: 
+
+`dialogue_data_folder`: the directory where the dialogue data files to be evaluated reside.
+
+`saved_result_folder`: the directory where you want to store the Evaluation results. 
+
+`dialogue_data_file_names`: the dialogue data files you want to evaluate.
+
+`index_pair_list`: For the PairEval and GTEval, you need to sepcify the conversations to be compared.  
+
+Then, just execute: 
+
+`python3 *_eval.py`
+
+### Evaluation results
+They are stored in `result_oasst` and `result_arena`.  
+
+And we visualize the results. 
+
+##### oasst UniEval (6-turns)
+![oasst_uni_eval_6 Graph](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_uni_eval_6_turns.pdf)
+
+##### oasst UniEval (12-turns)
+![oasst_uni_eval_12 Graph](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_uni_eval_12_turns.pdf)
+
+##### arena UniEval (6-turns)
+![arena_uni_eval_6 Graph](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_uni_eval_6_turns.pdf)
+
+##### arena UniEval (12-turns)
+![arena_uni_eval_12 Graph](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_uni_eval_12_turns.pdf)
+
+##### oasst GTEval (6-turns)
+![oasst_gt_eval_6 Graph](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_gt_eval_6_turns.pdf)
+
+##### oasst GTEval (12-turns)
+![oasst_gt_eval_12 Graph](Evaluation/result_summary_oasst/GPT4o_Evaluator/oasst_gt_eval_12_turns.pdf)
+
+##### arena GTEval (6-turns)
+![arena_gt_eval_6 Graph](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_gt_eval_6_turns.pdf)
+
+##### arena GTEval (12-turns)
+![arena_gt_eval_12 Graph](Evaluation/result_summary_arena/GPT4o_Evaluator/arena_gt_eval_12_turns.pdf)
