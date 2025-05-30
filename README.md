@@ -56,6 +56,8 @@ All the metrics are defined in `evaluation_metrics.py`. For more details, please
 
 Prompts of the judge LLM are defined in `prompts.py`.  
 
+These two files are provided by Shijing Cai from Calvin Risk AG, Switzerland.  
+
 ### How to run
 The code to run the UniEval, PairEval, and GTEval process are defined in `uni_eval.py`, `pair_eval.py`, and `gt_eval.py`.  
 
